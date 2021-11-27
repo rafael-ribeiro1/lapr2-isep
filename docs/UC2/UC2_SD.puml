@@ -1,0 +1,57 @@
+@startuml
+autonumber
+actor "Collaborator" as COL
+
+
+participant ":TaskCreationUI" as UI
+participant ":TaskCreationController" as CTRL
+participant ":Platform" as PLAT
+participant "rorgs:Registry\nOrganizations" as RORGS
+participant "org\n:Organization" as ORG
+participant "listTask\n:ListTasks" as LT
+participant "task\n:Task" as TAS
+
+activate COL
+COL -> UI : initiates the creation of a task
+activate UI
+UI --> COL :  requests the necessary data about the task\n (id, brief description, time duration (in hours),\n cost per hour (in euros) and task category)
+deactivate UI
+
+COL -> UI : enters the requested data
+activate UI
+
+UI -> CTRL : newTask(taskID, taskAssignDuration,\n taskCostPerHour, taskCategory, taskDescr)
+activate CTRL
+CTRL -> PLAT : rorgs = getRegistryOrganizations()
+activate PLAT
+deactivate PLAT
+CTRL -> RORGS: org = getOrgByUserEmail()
+activate RORGS
+deactivate RORGS
+CTRL -> ORG: listTask = getListTask()
+activate ORG
+deactivate ORG
+CTRL -> LT : newTask(taskID, taskAssignDuration,\n taskCostPerHour, taskCategory, taskDescr)
+activate LT
+LT -> TAS** : task = create (taskID, taskDescr, taskAssignDuration,\n taskCostPerHour, taskCategory)
+
+deactivate LT
+deactivate CTRL
+UI -> CTRL : registerTask()
+activate CTRL
+CTRL -> LT : registerTask(task)
+activate LT
+LT -> TAS : validates()
+activate TAS
+deactivate TAS
+LT -> LT : validatesTask(task)
+LT -> LT : add(task)
+deactivate LT
+deactivate CTRL
+UI --> COL : The system validates and regists the data and\n informs the collaborator  of the sucess of the operation
+deactivate UI
+
+
+
+@enduml
+

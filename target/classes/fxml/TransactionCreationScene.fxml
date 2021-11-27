@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox alignment="CENTER" prefHeight="30.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Transaction Creation">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ComboBox fx:id="cmbTask" prefHeight="25.0" prefWidth="293.0" promptText="Select a Task" />
+               </children>
+            </HBox>
+            <HBox alignment="BOTTOM_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="80.0" prefWidth="500.0">
+               <children>
+                  <ComboBox fx:id="cmbFreelancer" prefHeight="25.0" prefWidth="295.0" promptText="Select a Freelancer" />
+               </children>
+            </HBox>
+            <VBox fx:id="txtFieldID" alignment="CENTER" layoutX="10.0" layoutY="190.0" prefHeight="119.0" prefWidth="500.0">
+               <children>
+                  <TextField fx:id="txtID" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionTransaction" prefHeight="25.0" prefWidth="293.0" promptText="Transaction ID">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="119.0" prefWidth="500.0">
+               <children>
+                  <DatePicker fx:id="datePicker" prefHeight="25.0" prefWidth="290.0" promptText="Transaction Date" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="210.0" prefHeight="109.0" prefWidth="500.0">
+               <children>
+                  <TextField fx:id="txtDelay" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionTransaction" prefHeight="25.0" prefWidth="293.0" promptText="Delay ">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="362.0" prefHeight="113.0" prefWidth="500.0">
+               <children>
+                  <TextField fx:id="txtDescription" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#actionTransaction" prefHeight="38.0" prefWidth="293.0" promptText="Descripton Work">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="74.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#actionTransaction" prefHeight="42.0" prefWidth="166.0" text="Register Transaction">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

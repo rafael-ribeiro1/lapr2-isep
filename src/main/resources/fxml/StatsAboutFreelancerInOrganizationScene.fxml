@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox prefHeight="230.0" prefWidth="717.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="21.0" prefWidth="735.0" text="Statistics about Freelancer in Organization">
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </Label>
+            <Separator prefWidth="200.0">
+               <opaqueInsets>
+                  <Insets left="40.0" right="40.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="40.0" right="40.0" />
+               </padding>
+            </Separator>
+            <HBox prefHeight="191.0" prefWidth="717.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="191.0" prefWidth="1193.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="21.0" prefWidth="426.0" text="Select Freelancer:">
+                           <VBox.margin>
+                              <Insets right="160.0" />
+                           </VBox.margin></Label>
+                        <HBox alignment="CENTER" prefHeight="135.0" prefWidth="650.0">
+                           <children>
+                              <ListView fx:id="lvFrl" onMouseClicked="#selectFreeAction" prefHeight="135.0" prefWidth="402.0" />
+                              <ComboBox fx:id="cmbSort" onAction="#sortList" prefHeight="31.0" prefWidth="137.0" promptText="Sort By :">
+                                 <HBox.margin>
+                                    <Insets left="30.0" top="-50.0" />
+                                 </HBox.margin>
+                              </ComboBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="191.0" prefWidth="103.0">
+                     <children>
+                        <ImageView fx:id="ordenarListView1" fitHeight="39.0" fitWidth="37.0" onMouseClicked="#changeOrdemNormal" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../logos/ordenacao.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets bottom="25.0" right="10.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                        <ImageView fx:id="ordenarLstView" fitHeight="36.0" fitWidth="33.0" nodeOrientation="INHERIT" onMouseClicked="#changeOrder" pickOnBounds="true">
+                           <HBox.margin>
+                              <Insets bottom="25.0" right="10.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../logos/ordenacao_inversa.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children></HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="381.0" prefWidth="358.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="379.0" text="Delays" />
+                  <Separator prefWidth="200.0">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding></Separator>
+                  <HBox alignment="CENTER" prefHeight="39.0" prefWidth="356.0">
+                     <children>
+                        <Label text="Mean:" />
+                        <TextField fx:id="txtMeanDelays" editable="false" prefHeight="31.0" prefWidth="90.0" text="0.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="27.0" prefWidth="356.0">
+                     <children>
+                        <Label text="Standard Deviation:" />
+                        <TextField fx:id="txtDeviationDelays" editable="false" prefHeight="27.0" prefWidth="89.0" text="0.0" />
+                     </children>
+                  </HBox>
+                  <BarChart fx:id="histogramDelays" animated="false" barGap="0.0" categoryGap="0.0" prefHeight="275.0" prefWidth="356.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+               </children>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0">
+               <HBox.margin>
+                  <Insets top="21.0" />
+               </HBox.margin>
+            </Separator>
+            <VBox prefHeight="381.0" prefWidth="358.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="21.0" prefWidth="401.0" text="Payments" />
+                  <Separator prefWidth="200.0">
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding></Separator>
+                  <HBox alignment="CENTER" prefHeight="46.0" prefWidth="356.0">
+                     <children>
+                        <Label text="Mean:" />
+                        <TextField fx:id="txtMeanPays" editable="false" prefHeight="31.0" prefWidth="97.0" text="0.0" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="47.0" prefWidth="356.0">
+                     <children>
+                        <Label text="Standard Deviation:" />
+                        <TextField fx:id="txtDeviationPays" editable="false" prefHeight="31.0" prefWidth="103.0" text="0.0" />
+                     </children>
+                  </HBox>
+                  <BarChart fx:id="histogramPays" animated="false" barGap="0.0" categoryGap="0.0" prefHeight="289.0" prefWidth="356.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

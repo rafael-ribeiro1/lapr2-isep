@@ -1,0 +1,23 @@
+@startuml
+autonumber
+
+actor "Organization Collaborator" as ACT
+participant "System" as UI
+activate ACT
+
+ACT -> UI : Begins the process of create a Freelancer.
+activate UI
+UI ---> ACT : Shows the list of Freelancer Expertise,list of all Countries on the system and requests the Freelancer data\n (Name,Expertise,Email,NIF,Bank Account,Address,Country).
+deactivate UI
+ACT -> UI : Introduce the requested Data
+activate UI
+UI ---> ACT : Validates the introduced data and Informs about the success of the process
+
+
+
+
+
+
+
+
+@enduml

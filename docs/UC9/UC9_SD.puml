@@ -1,0 +1,30 @@
+@startuml
+autonumber
+participant ":RegistryFreelancers" as REFREE
+participant "task:EndYearEmailTask" as TASK
+participant "t:Timer" as TIM
+
+
+
+[o-> REFREE : scheduleAutomaticEmail()
+activate REFREE
+
+REFREE--> TASK**: create()
+REFREE -> REFREE : definedDate=getDateSchedule()
+REFREE--> TIM**: create()
+
+REFREE-> TIM: schedule(task,definedDate)
+activate TIM
+|||
+deactivate REFREE
+TIM -> TASK : run()
+activate TASK
+TASK->TASK: sendEmails()
+ref over TASK: SD_sendEmails
+TASK -> TASK: scheduleNextTimer()
+ref over TASK: SD_ScheduleNextTimer
+
+deactivate TASK
+deactivate TIM
+
+@enduml

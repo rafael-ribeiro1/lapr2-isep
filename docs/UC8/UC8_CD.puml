@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+package ui {
+class StatsAllFreelancersUI {}
+}
+
+package controller {
+class StatsAllFreelancersController {
+  +getMeanDelays()
+  +getDeviationDelays()
+  +getHistogramDataDelays()
+  +getMeanPays()
+  +getDeviationPays()
+  +getHistogramDataPays()
+  +getProbability()
+  +getListFreelancers()
+  +getFreelancer(index)
+  +getMeanDelaysOfFrl(frl)
+  +getDeviationDelaysOfFrl(frl)
+  +getHistogramDataDelaysOfFrl(frl)
+  +getMeanPaysOfFrl(frl)
+  +getDeviationPaysOfFrl(frl)
+  +getHistogramDataPaysOfFrl(frl)
+}
+}
+
+package model {
+class Platform {
+  +getRegistryTransactions()
+  +getRegistryFreelancers()
+}
+
+package registrys {
+class RegistryTransactions {
+  +getMeanDelays()
+  +getDeviationDelays()
+  +getHistogramDataDelays()
+  +getMeanPays()
+  +getDeviationPays()
+  +getHistogramDataPays()
+  +getProbability()
+  +getMeanDelaysOfFreelancer(frl)
+  +getDeviationDelaysOfFreelancer(frl)
+  +getHistogramDataDelaysOfFreelancer(frl)
+  +getMeanPaysOfFreelancer(frl)
+  +getDeviationPaysOfFreelancer(frl)
+  +getHistogramDataPaysOfFreelancer(frl)
+}
+class RegistryFreelancers {
+  +getListFreelancers()
+  +getFreelancerByIndex(index)
+}
+}
+ 
+class Transaction {
+  -Date endDate
+  -int delay
+  -String descriptionWork
+  -boolean paid
+}
+
+class Freelancer {
+  -String idFreelancer
+  -String freelancerName
+  -String freelancerExpertise
+  -String freelancerEmail
+  -String freelancerNIF
+  -String freelancerBankAccount
+  -String freelancerAddress
+  -String freelancerCountry
+}
+}
+
+StatsAllFreelancersUI ..> StatsAllFreelancersController
+StatsAllFreelancersController ..> Platform
+StatsAllFreelancersController ..> RegistryTransactions
+StatsAllFreelancersController ..> RegistryFreelancers
+Platform "1" --> "1" RegistryTransactions: has
+RegistryTransactions "1" --> "*" Transaction: has
+Platform "1" --> "1" RegistryFreelancers: has
+RegistryFreelancers "1" --> "*" Freelancer: has
+
+@enduml

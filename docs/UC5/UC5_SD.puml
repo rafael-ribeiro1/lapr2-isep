@@ -1,0 +1,62 @@
+@startuml
+autonumber
+
+actor "Manager" as MNG
+participant ":SetPaymentsDatetimeUI" as UI
+participant ":SetPaymentsDatetimeController" as CTRL
+participant ":Platform" as PLAT
+participant ":LoginSystem" as SES
+participant "regOrg\n:RegistryOrganizations" as REGORG
+participant "org\n:Organization" as ORG
+
+MNG -> UI: starts seting the payment datetime
+activate MNG
+activate UI
+
+UI -> CTRL: getOrganization()
+activate CTRL
+
+CTRL -> SES: email=getLoggedUserEmail()
+activate SES
+deactivate SES
+
+CTRL -> PLAT: regOrg=getRegistryOrganizations()
+activate PLAT
+deactivate PLAT
+
+CTRL -> REGORG: org=getOrgByUserEmail(email)
+activate REGORG
+ref over REGORG, ORG: SD_GetOrgByUserEmail
+deactivate REGORG
+deactivate CTRL
+
+UI --> MNG: asks for the day of the month and time of day
+deactivate UI
+
+MNG -> UI: inserts the requested data
+activate UI
+
+UI --> MNG: shows the information, asking for confirmation
+deactivate UI
+
+MNG -> UI: confirms
+activate UI
+
+UI -> CTRL: registerPaymentsDatetime(day,hour,min)
+activate CTRL
+
+CTRL -> ORG: registerPaymentsDatetime(day,hour,min)
+activate ORG
+
+ORG -> ORG: validDatetime(day,hour,min)
+ORG -> ORG: setPaymentsDatetime(day,hour,min)
+deactivate ORG
+
+deactivate CTRL
+
+UI --> MNG: communicates the success of the operation
+deactivate UI
+
+deactivate MNG
+
+@enduml

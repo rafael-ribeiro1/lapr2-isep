@@ -1,0 +1,78 @@
+@startuml
+autonumber
+
+actor "Colaborator" as Actor
+participant "FreelancerCreationUI" as UI
+participant "FreelancerCreationController" as Controller
+participant ":Freelancer" as Freelancer
+participant "exp:Freelancer.Expertise[]"
+participant "Platform" as PLAT
+participant "cr:ExternalConverterCurrency" as cr
+participant "countrys:String[]"
+participant "regFree:RegistryFreelancer" as regFree
+participant "free:Freelancer" as Free
+
+activate Actor
+Actor -> UI : Begins the process of creating a Freelancer
+activate UI
+UI->Controller: getExpertiseArray()
+activate Controller
+Controller->Freelancer:exp=getExpertiseArray()
+activate Freelancer
+|||
+deactivate Freelancer
+deactivate Controller
+UI->Controller: getCountrys()
+activate Controller
+Controller -> PLAT : cr=getExternalConverterCurrency()
+activate PLAT
+|||
+deactivate PLAT
+Controller->cr:countrys=getAvailableCountrys()
+activate cr
+|||
+deactivate cr
+deactivate Controller
+UI ---> Actor : Shows the list of Freelancer Expertise,list of all Countries on the system and requests the Freelancer data (Name,Expertise,Email,NIF,Bank Account,Address,Country)
+deactivate UI
+Actor -> UI : Introduce the requested data(name,expertise,email,nif,bankAccount,address,country)
+activate UI
+UI->Controller : newFreelancer(name,expertise,email,nif,bankAccount,address,country)
+activate Controller
+Controller -> PLAT : regFree=getRegistryFreelancer()
+activate PLAT
+|||
+deactivate PLAT
+Controller -> regFree :  newFreelancer(name,expertise,email,nif,bankAccount,address,country)
+activate regFree
+regFree -> Free **: create (name,expertise,email,nif,bankAccount,address,country)
+
+
+deactivate Free
+deactivate regFree
+deactivate Controller
+UI->Controller:registerFreelancer()
+activate Controller
+Controller->regFree:generateFreelancerID(free)
+activate regFree
+regFree->Free:setId(id)
+activate Free
+|||
+deactivate Free
+deactivate regFree
+Controller->regFree:registerFreelancer(free)
+activate regFree
+regFree->Free:validate()
+activate Free
+|||
+deactivate Free
+regFree->regFree:validate()
+deactivate regFree
+deactivate Controller
+UI--->Actor :Validates the introduced data and informs about the success of the process.
+deactivate Actor
+deactivate UI
+
+
+
+@enduml

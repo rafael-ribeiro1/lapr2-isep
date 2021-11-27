@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="loginBorder" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="isep.dei.lapr2.ui.LoginPageUI">
+   <bottom>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="20.0" right="54.0" />
+         </BorderPane.margin>
+         <children>
+            <Label text="Application developed by Team Trees™ IDIJ" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="70.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </bottom>
+   <center>
+      <VBox fx:id="vBoxLogin" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-border-color: #d9d9d9;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imagemLogin" fitHeight="261.0" fitWidth="334.0" pickOnBounds="true" preserveRatio="true">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <image>
+                  <Image url="@../logos/logoTeam.png" />
+               </image>
+            </ImageView>
+            <Label text="Welcome to T4J Payments">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtEmail" alignment="CENTER" onAction="#actionLogin" prefHeight="30.0" prefWidth="250.0" promptText="Email" style="-fx-border-color: #737373;">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </TextField>
+            <PasswordField fx:id="txtPwd" alignment="CENTER" onAction="#actionLogin" prefHeight="30.0" prefWidth="250.0" promptText="Password" style="-fx-border-color: #737373;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#actionLogin" prefHeight="29.0" prefWidth="403.0" text="Login">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="20.0" />
+               </VBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label fx:id="lblError" alignment="CENTER" text="Error" textFill="WHITE" visible="false">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets right="-20.0" top="-20.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <top>
+      <HBox alignment="TOP_RIGHT" prefHeight="36.0" prefWidth="1080.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imgLogout" fitHeight="42.0" fitWidth="42.0" onMouseClicked="#actionExit" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../logos/endApp.png" />
+               </image>
+               <HBox.margin>
+                  <Insets right="20.0" top="15.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

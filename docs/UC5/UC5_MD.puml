@@ -1,0 +1,53 @@
+@startuml
+
+hide methods
+left to right direction
+
+
+class Platform {
+
+}
+
+class Organization {
+  -String orgName
+  -Integer paymentDay
+  -Time paymentTime
+}
+
+class Collaborator {
+  -String name
+  -String email
+}
+
+class Manager {
+  -String name
+  -String email
+}
+
+class User{
+-String userEmail
+-String userName
+-String userPassword
+}
+
+class Transaction {
+-Integer transID
+-Boolean transPaid
+-Date executionFinishDate
+-Integer executionDelay
+-String executionBriefDescription
+}
+
+
+Platform"1" --> "*" Organization : has >
+Platform"1" -->"*" Transaction : it has >
+Organization"1" --> "*"Collaborator : Has >
+Organization"1" --> "*"Manager : Has >
+Collaborator"1" --> "1" Organization : Works for >
+Collaborator"1" -->"*" Transaction : Creates >
+Transaction"*" -->"1" Organization : of >
+Collaborator"1" -->"1" User : is  >
+Manager "1" --> "1" User: is >
+Platform"1" -->"*" User : has >
+
+@enduml

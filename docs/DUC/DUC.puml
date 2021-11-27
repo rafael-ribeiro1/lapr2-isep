@@ -1,0 +1,38 @@
+@startuml
+
+usecase UC1 as "UC1 - Register Organization"
+usecase UC2 as "UC2 - Task Creation"
+usecase UC3 as "UC3 - Transaction Creation"
+usecase UC4 as "UC4 - Upload Transactions from File"
+usecase UC5 as "UC5 - Set Payments Datetime"
+usecase UC6 as "UC6 - Automatic Payment"
+usecase UC7 as "UC7 - Statistics about Tasks\n of Organization"
+usecase UC8 as "UC8 - Statistics about all Freelancers"
+usecase UC9 as "UC9 - Automatic end-year email"
+usecase UC10 as "UC10 - Freelancer Creation"
+usecase UC11 as "UC11 - Send email to freelancers\n with high delays"
+
+actor "Administrator" as ADM
+actor "Organization Manager" as MNG
+actor "Organization Collaborator" as COL
+actor "Timer" as TIM
+
+left to right direction
+
+ADM --> (UC1)
+ADM --> (UC8)
+ADM --> (UC11)
+
+MNG --> (UC5)
+MNG --> (UC7)
+
+COL --> (UC2)
+COL --> (UC3)
+COL --> (UC4)
+COL --> (UC7)
+COL --> (UC10)
+
+TIM --> (UC6)
+TIM --> (UC9)
+
+@enduml

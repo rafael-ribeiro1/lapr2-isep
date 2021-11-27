@@ -1,0 +1,55 @@
+@startuml
+
+hide methods
+left to right direction
+
+
+class Platform {
+
+}
+
+class User{
+-String userEmail
+-String userName
+-String userPassword
+}
+
+
+class Freelancer {
+-String idFreelancer
+-String freelancerName
+-String freelancerExpertise
+-String freelancerEmail
+-String freelancerNIF
+-String freelancerBankAccount
+-String freelancerAddress
+-String freelancerCountry
+}
+
+
+class Task{
+-Integer taskID
+-Integer taskAssignDuration
+-Double taskCostPerHour
+-String taskCategory
+}
+class Administrator {
+
+}
+class Transaction {
+-Integer transID
+-Boolean transPaid
+-Date executionFinishDate
+-Integer executionDelay
+-String executionBriefDescription
+}
+
+Platform"1" --> "*" Freelancer : has >
+Platform "1" --> "*" Administrator : has >
+Platform"1" -->"*" Transaction : it has
+Administrator"*" --> "1" Platform : Works for >
+Transaction "1" --> "1" Task: refers to >
+Transaction "1" --> "1" Freelancer: to >
+Administrator"1" --> "1"User : is  >
+Platform"1" -->"*" User : has >
+@enduml

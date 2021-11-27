@@ -1,0 +1,92 @@
+@startuml
+
+hide methods
+left to right direction
+
+
+class Platform
+
+class PasswordGenerator
+
+class Organization {
+  -String orgName
+  -String nif
+  -Integer paymentDay
+  -Time paymentTime
+}
+
+class Collaborator {
+  -String name
+  -String email
+}
+
+class Manager {
+  -String name
+  -String email
+}
+
+class User{
+-String userEmail
+-String userName
+-String userPassword
+}
+
+
+class Freelancer {
+-String id
+-String name
+-String expertise
+-String email
+-String nif
+-String bankAccount
+-String address
+-String country
+}
+
+
+class Task{
+-String taskID
+-String taskDescription
+-Integer taskAssignDuration
+-Double taskCostPerHour
+-String taskCategory
+-boolean taskHasTransaction
+}
+class Administrator
+class Transaction {
+-Integer transID
+-Boolean transPaid
+-Date executionFinishDate
+-Integer executionDelay
+-String executionBriefDescription
+}
+class externalConverterCurrency{
+}
+class externalEmailSender
+Platform "1" --> "1"PasswordGenerator : resort to >
+Platform"1" --> "*" Freelancer : has >
+Platform "1" --> "*" Administrator : has >
+Platform"1" --> "*" Organization : has >
+Platform"1" -->"*" Transaction : it has
+Platform"1" -->"1" externalConverterCurrency : it has >
+Platform"1" -->"1" externalEmailSender : it has >
+Administrator"*" --> "1" Platform : Works for >
+Administrator"1" -->"*" Organization : Creates >
+Organization"1" --> "1"Collaborator : Has >
+Organization"1" --> "1"Manager: Has >
+Organization"1" -->"*" Task : Has >
+Collaborator"1" --> "1" Organization : Works for >
+Collaborator"1" --> "*" Task : Creates >
+Collaborator"1" -->"*" Transaction : Creates >
+Freelancer"1" -->"*" Organization : Works for >
+externalEmailSender"1" --> "1"Freelancer : gets info >
+externalEmailSender"1" -->"1" externalConverterCurrency : interacts >
+Transaction"*" -->"1" Organization : of >
+Transaction "1" --> "1" Task: refers to >
+Transaction "1" --> "1" Freelancer: to >
+Collaborator"1" -->"1" User : is  >
+Manager "1" --> "1" User: is >
+Administrator"1" --> "1"User : is  >
+Platform"1" -->"*" User : has >
+PasswordGenerator "1" -->"*" User :generate password >
+@enduml

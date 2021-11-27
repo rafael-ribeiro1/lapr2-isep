@@ -1,0 +1,22 @@
+@startuml
+autonumber
+actor "Organization Manager" as MNG
+
+activate MNG
+MNG -> ":System" : starts seting the payments datetime
+activate ":System"
+":System" --> MNG : ask for the day of the month and time of day
+deactivate ":System"
+
+MNG -> ":System" : insert the requested data
+activate ":System"
+":System" --> MNG : shows the information and asks for confirmation
+deactivate ":System"
+
+MNG -> ":System" : confirms
+activate ":System"
+":System" --> MNG : successful operation
+deactivate ":System"
+
+deactivate MNG
+@enduml

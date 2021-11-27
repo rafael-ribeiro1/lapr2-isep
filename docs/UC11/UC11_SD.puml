@@ -1,0 +1,64 @@
+@startuml
+autonumber
+
+actor "Administrator" as ADM
+participant ":SendEmailHighDelaysUI" as UI
+participant ":SendEmailHighDelaysController" as CTRL
+participant ":Platform" as PLAT
+participant "regFrl\n:RegistryFreelancers" as REGFRL
+participant "freelancersWithHighDelays\n:List<Freelancer>" as LIST
+participant "freelancer\n:Freelancer" as FRL
+participant "<<interface>>\nemailSender:ExternalEmailSender" as EMAIL
+
+ADM -> UI: starts the process
+activate ADM
+activate UI
+
+UI -> CTRL: freelancersWithHighDelays=getFreelancersWithHighTaskDelay()
+activate CTRL
+
+CTRL -> PLAT: regFrl=getRegistryFreelancers()
+activate PLAT
+deactivate PLAT
+
+CTRL -> REGFRL: freelancersWithHighDelays=getFreelancersWithHighDelays()
+activate REGFRL
+ref over REGFRL: SD_getFreelancersWithHighDelays
+deactivate REGFRL
+
+deactivate CTRL
+
+UI --> ADM: lists freelancers with high delays\nand asks for confirmation
+deactivate UI
+
+ADM -> UI: confirms
+activate UI
+
+UI -> CTRL: sendEmail(freelancersWithHighDelays)
+activate CTRL
+
+loop For every freelancer with high delays
+CTRL -> LIST: frl=get(i)
+activate LIST
+deactivate LIST
+
+CTRL -> REGFRL: sendEmailWithInfo(frl)
+activate REGFRL
+
+REGFRL -> FRL: email=getFreelancerEmail()
+activate FRL
+deactivate FRL
+REGFRL -> REGFRL: generateEmailHeader()
+REGFRL -> REGFRL: generateEmailContent(frl)
+
+REGFRL -> EMAIL: sendEmail(email,header,content)
+activate EMAIL
+deactivate EMAIL
+deactivate REGFRL
+end loop
+deactivate CTRL
+
+UI --> ADM: sends email and communicates\n the success of operation
+deactivate UI
+deactivate ADM
+@enduml

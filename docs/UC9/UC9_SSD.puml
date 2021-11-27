@@ -1,0 +1,10 @@
+@startuml
+
+actor "Timer" as Timer
+activate Timer
+activate "System"
+Timer -> System : Begins the automatic process
+System --> Timer : Sends all the necessary emails and ends the process
+
+
+@enduml

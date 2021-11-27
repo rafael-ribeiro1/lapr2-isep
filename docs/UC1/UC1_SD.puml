@@ -1,0 +1,63 @@
+@startuml
+autonumber
+
+actor "Administrative" as ADM
+participant ":Register\nOrganizationUI" as UI
+participant ":RegisterOrganization\nController" as CTRL
+participant ":Platform" as PLAT
+participant "or:Registry\nOrganizations" as ORGS
+participant "org:Organization" as ORG
+participant "man:Manager" as MAN
+participant "collab:Colaborador" as COLLAB
+participant ":LoginSystem" as Login
+
+activate ADM
+ADM -> UI : initiates the registration of an organization.
+activate UI
+UI -> ADM :Requests the necessary data about the organization ( name, NIF),\n about the collaborator (name, email) and about the manager (name, email).
+deactivate UI
+
+ADM -> UI : enters the requested data
+activate UI
+UI -> CTRL: newOrganization (nameOrg, nif , nameCollab,\nemailCollab,nameManager,emailManager)
+activate CTRL
+CTRL -> PLAT : or = getRegistryOrganizations()
+activate PLAT
+deactivate PLAT
+CTRL -> ORGS : newOrganization (nameOrg, nif , nameCollab,\n emailCollab,nameManager,emailManager)
+activate ORGS
+ORGS -> ORG** : org=create(nameOrg, nif , nameCollab,\nemailCollab,nameManager,emailManager)
+activate ORG
+ORG->MAN**:man=create(nameMan,emailMan)
+ORG->COLLAB**:collab=create(nameCollab,emailCollab)
+deactivate ORG
+deactivate ORGS
+CTRL-> Login : newUser(nameCollab,emailCollab,COLLABORATOR)
+activate Login
+CTRL-> Login : newUser(nameManager,emailManager,MANAGER)
+deactivate Login
+deactivate CTRL
+UI->CTRL:registerOrganization()
+activate CTRL
+CTRL->ORGS : registerOrganization(org)
+activate ORGS
+ORGS->ORG : validate()
+activate ORG
+|||
+deactivate ORG
+ORGS->ORGS:validate(org)
+ORGS->ORGS:add(org)
+deactivate ORGS
+CTRL-> Login : newUser(nameCollab,emailCollab,COLLABORATOR)
+activate Login
+CTRL-> Login : newUser(nameManager,emailManager,MANAGER)
+deactivate Login
+deactivate CTRL
+
+UI -> ADM : The system validates, saves the organization data and informs about the operation success.
+deactivate UI
+
+
+
+
+@enduml

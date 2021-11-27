@@ -1,0 +1,11 @@
+@startuml
+autonumber
+actor "Timer" as TMR
+
+activate TMR
+TMR -> ":System" : starts the process at the specified datetime
+activate ":System"
+":System" --> TMR : records the payments and ends the process
+deactivate ":System"
+deactivate TMR
+@enduml

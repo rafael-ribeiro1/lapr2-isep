@@ -1,0 +1,22 @@
+@startuml
+autonumber
+title "SD_ScheduleNextTimer"
+
+participant ":AutomaticPaymentTask" as TASK
+participant "org\n:Organization" as ORG
+participant ":Platform" as PLAT
+participant "regTrans\n:RegistryTransactions" as REGTRA
+
+[o-> TASK: scheduleNextTimer(org)
+activate TASK
+  
+TASK -> PLAT: regTrans=getRegistryTransactions()
+activate PLAT
+deactivate PLAT
+
+TASK -> REGTRA: scheduleOrgPayments(org)
+activate REGTRA
+deactivate REGTRA
+
+deactivate TASK
+@enduml

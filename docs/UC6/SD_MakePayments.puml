@@ -1,0 +1,105 @@
+@startuml
+autonumber
+title "SD_MakePayments"
+
+participant ":AutomaticPaymentTask" as TASK
+participant "org\n:Organization" as ORG
+participant ":Platform" as PLAT
+participant "regTrans\n:RegistryTransactions" as REGTRA
+participant ":List<Transaction>" as LSTTRA
+participant "transaction\n:Transaction" as TRAN
+participant "paidTrans\n:List<Transaction>" as LSTPAID
+participant "regFree\n:RegistryFreelancers" as REGFRL
+participant ":List<Freelancer>" as LSTFRL
+participant "freelancer\n:Freelancer" as FRL
+participant "payment\n:Transaction" as PAY
+participant "<<interface>>\nemailSender:ExternalEmailSender" as EMAIL
+participant "<<interface>>\nconverter:ExternalConverterCurrency" as CON
+
+[o-> TASK: makePayments(org)
+activate TASK
+  
+TASK -> PLAT: regTrans=getRegistryTransactions()
+activate PLAT
+deactivate PLAT
+
+TASK -> REGTRA: paidTrans=payTransactions(org)
+activate REGTRA
+REGTRA --> LSTPAID**: create()
+
+loop For every transaction not paid of "org"
+REGTRA -> LSTTRA: transacton=get(i)
+activate LSTTRA
+deactivate LSTTRA
+
+REGTRA -> TRAN: payAndRegister()
+activate TRAN
+deactivate TRAN
+
+REGTRA -> LSTPAID: add(transaction)
+activate LSTPAID
+deactivate LSTPAID
+end loop
+REGTRA --> TASK: paidTrans
+deactivate REGTRA
+
+TASK -> PLAT: regFree=getRegistryFreelancers()
+activate PLAT
+deactivate PLAT
+
+TASK -> REGFRL: sendEmails(paidTrans)
+activate REGFRL
+loop For every freelancer
+REGFRL -> LSTFRL: freelancer=get(i)
+activate LSTFRL
+deactivate LSTFRL
+
+REGFRL -> REGFRL: overall=0
+
+REGFRL -> FRL: country=getFreelancerCountry()
+activate FRL
+deactivate FRL
+
+loop For every payment
+REGFRL -> LSTPAID: payment=get(i)
+activate LSTPAID
+deactivate LSTPAID
+
+REGFRL -> PAY: frlPayment=getFreelancer()
+activate PAY
+deactivate PAY
+
+opt freelancer==frlPayment
+REGFRL -> PAY: amountEUR=getAmountToPay()
+activate PAY
+deactivate PAY
+
+REGFRL -> REGFRL: overall=overall+amountEUR
+  
+REGFRL -> CON: amountConv=convertCurrency(amountEUR,country)
+activate CON
+deactivate CON
+end opt
+end loop
+
+opt overall!=0
+REGFRL -> CON: overallConv=convertCurrency(overall,country)
+activate CON
+deactivate CON
+
+REGFRL -> FRL: email=getFreelancerEmail()
+activate FRL
+deactivate FRL
+
+REGFRL -> REGFRL: header=generateEmailHeader()
+REGFRL -> REGFRL: content=generateEmailContent(overall,overallConv)
+
+REGFRL -> EMAIL: sendEmail(email,header,content)
+activate EMAIL
+deactivate EMAIL
+end opt
+end loop
+deactivate REGFRL
+
+deactivate TASK
+@enduml

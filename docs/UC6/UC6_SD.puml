@@ -1,0 +1,40 @@
+@startuml
+autonumber
+
+participant ":RegistryTransactions" as REGTRA
+participant "org:Organization" as ORG
+participant "task:AutomaticPaymentTask" as TASK
+participant "t:Timer" as TIM
+
+[o-> REGTRA: scheduleOrgPayments(org)
+activate REGTRA
+
+REGTRA --> TASK**: create(org)
+
+REGTRA -> ORG: paymentsDate=getNextPaymentsDate()
+activate ORG
+deactivate ORG
+
+REGTRA --> TIM**: create()
+
+REGTRA -> TIM: schedule(task,paymentDate)
+activate TIM
+deactivate TIM
+
+deactivate REGTRA
+  
+note over REGTRA,TIM: After the time until paymentsDate has passed
+
+TIM -> TASK: run()
+activate TIM
+activate TASK
+
+TASK -> TASK: makePayments(org)
+ref over TASK: SD_MakePayments
+
+TASK -> TASK: scheduleNextTimer(org)
+ref over TASK: SD_ScheduleNextTimer
+
+deactivate TASK
+deactivate TIM
+@enduml

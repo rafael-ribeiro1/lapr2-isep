@@ -1,0 +1,107 @@
+@startuml
+autonumber
+
+actor "Collaborator" as COLAB
+participant "TransactionCreationUI" as UI
+participant "TransactionCreationController" as Controller
+participant "LoginSystem" as userSession
+participant "Platform" as PLAT
+participant "ro:RegistryOrganization" as ro
+
+participant "org:Organization" as org
+participant "lT:listTask" as LT
+participant "listTasks:List<Task>" as listTask
+participant "rF:registryFreelancer" as RF
+participant "lF:listFreelancers" as LF
+participant "rT:RegistryTransaction" as RT
+participant "trans:Transaction" as Transaction
+
+activate COLAB
+activate UI
+COLAB -> UI : Begins the process of create a transaction.
+
+UI -> Controller : getListTaskWithNoTransactions()
+activate Controller
+Controller -> userSession : email=getLoggedUserEmail()
+activate userSession
+|||
+deactivate userSession
+Controller -> PLAT : ro=GetRegistryOrganization()
+activate PLAT
+|||
+deactivate PLAT
+Controller -> ro : org=getOrgByUserEmail(email)
+activate ro
+|||
+deactivate ro
+Controller -> org : lT=getListTask()
+activate org
+|||
+deactivate org
+Controller -> LT : listTasks=getListTaskWithNoTransactions()
+activate LT
+|||
+deactivate LT
+deactivate Controller
+UI -> Controller:getListFreelancers()
+activate Controller
+Controller->PLAT:rF=getRegistryFreelancer()
+activate PLAT
+|||
+deactivate PLAT
+Controller->RF:lF=getListFreelancers()
+activate RF
+|||
+deactivate RF
+deactivate Controller
+deactivate RT
+deactivate UI
+UI ---> COLAB : Shows a list of the tasks of the organization of the collaborator(That still do not have a transaction), a list with all freelancers registered on the system\n and request the selection of one task , freelancer and about the data about the execution of the selected task (end date, delay, brief description of the quality of the work).
+COLAB -> UI :Introduces the requested data(Task , Freelancer, endDate, delay, descriptionWork)
+activate UI
+UI -> Controller :newTransaction(Task , Freelancer, endDate, delay, descriptionWork)
+activate Controller
+Controller -> PLAT : rT=getRegistryTransaction()
+activate PLAT
+|||
+deactivate PLAT
+Controller  -> RT :trans=newTransaction(org, Task , Freelancer, endDate, delay, descriptionWork)
+activate RT
+RT -> Transaction** : create(Task , Freelancer, endDate, delay, descriptionWork)
+activate Transaction
+deactivate RT
+Transaction->Transaction:validate()
+Transaction->RT:validate(trans)
+activate RT
+|||
+deactivate RT
+deactivate Transaction
+deactivate Controller
+UI -> Controller : getAmountToPay()
+activate Controller
+Controller -> Transaction : rF=getAmountToPay()
+activate Transaction
+|||
+deactivate Transaction
+deactivate Controller
+UI --->COLAB :Validates the introduced data and shows the amount to pay,that was automatically computed, to the selected Freelancer and asks for confirmation.
+deactivate UI
+
+COLAB ->UI  :The collaborator confirms.
+activate UI
+UI -> Controller : registerTransaction()
+activate Controller
+Controller-> RT:registerTransaction(trans)
+activate RT
+|||
+deactivate RT
+deactivate Controller
+UI ---> COLAB :Informs of the success of the operation.
+deactivate UI
+
+
+
+
+
+
+@enduml

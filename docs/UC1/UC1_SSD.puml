@@ -1,0 +1,18 @@
+@startuml
+autonumber
+actor "Administrative" as ADM
+participant ":System" as SYS
+
+activate ADM
+
+ADM -> SYS : Initiates the registration of an organization
+activate SYS
+SYS ---> ADM : Requests the necessary data about the organization (name of the organization, NIF), about the collaborator (name, email) and about the manager (name, email)
+deactivate SYS
+ADM -> SYS : Enters the requested data
+activate SYS
+SYS ---> ADM : Validates the introduced data, saves the organization data and informs about the operation success.
+deactivate SYS
+
+
+@enduml

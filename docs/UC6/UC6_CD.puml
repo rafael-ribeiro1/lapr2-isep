@@ -1,0 +1,85 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+package controller {
+class AutomaticPaymentsTask {
+  +AutomaticPaymentTask(org)
+  +run()
+  -makePayments(org)
+  -scheduleNextTimer(org)
+}
+}
+
+class Timer {
+  +Timer()
+  +schedule(task,paymentDate)
+}
+
+package model {
+class Platform {
+  +getRegistryTransactions()
+  +getRegistryFreelancers()
+}
+class Organization {
+  -String orgName
+  -int paymentDay
+  -int paymentHour
+  -int paymentMinute
+  +getNextPaymentsDate()
+}
+package registrys {
+class RegistryTransactions {
+  +scheduleOrgPayments(org)
+  +payTransactions(org)
+}
+class RegistryFreelancers {
+  +sendEmails(paidTrans)
+  +generateEmailHeader()
+  +generateEmailContent()
+}
+}
+class Transaction {
+  -endDate
+  -delay
+  -descriptionWork
+  +payAndRegister()
+  +getFreelancer()
+  +getAmountToPay()
+}
+class Freelancer {
+  -String idFreelancer
+  -String freelancerName
+  -String freelancerExpertise
+  -String freelancerEmail
+  -String freelancerNIF
+  -String freelancerBankAccount
+  -String freelancerAddress
+  -String freelancerCountry
+  +getFreelancerCountry()
+  +getFreelancerEmail()
+}
+interface "<<interface>>\nExternalEmailSender" {
+  +sendEmail(email,header,content)
+}
+interface "<<interface>>\nExternalConverterCurrency" {
+  +convertCurrency(amountEUR,country)
+}
+}
+
+Timer ..> AutomaticPaymentsTask
+AutomaticPaymentsTask ..> RegistryTransactions
+AutomaticPaymentsTask ..> Platform
+AutomaticPaymentsTask ..> RegistryFreelancers
+AutomaticPaymentsTask "1" --> "1" Organization: has
+Platform "1" --> "1" RegistryTransactions: has
+RegistryTransactions "1" --> "*" Transaction: has
+Platform "1" --> "1" RegistryFreelancers: has
+RegistryFreelancers "1" --> "*" Freelancer: has
+Transaction "*" --> "1" Organization: of
+Platform"1" -->"1" "<<interface>>\nExternalConverterCurrency" : has
+Platform"1" -->"1" "<<interface>>\nExternalEmailSender" : has
+"<<interface>>\nExternalEmailSender" ..> RegistryFreelancers
+"<<interface>>\nExternalConverterCurrency" ..> RegistryFreelancers
+
+@enduml

@@ -1,0 +1,60 @@
+@startuml
+skinparam classAttributeIconSize 0
+package ui{
+class  TaskCreationUI{
+}
+}
+package controller {
+class TaskCreationController{
++newTask(taskID, taskAssignDuration,taskCostPerHour, taskCategory, taskDescr)
++registerTask()
+}
+}
+package model{
+class Platform{
++getRegistryOrganizations()
+}
+package RegistryClasses{
+class RegistryOrganizations{
++getOrgByUserEmail()
+}
+class ListTasks{
++newTask(taskID, taskAssignDuration, taskCostPerHour, taskCategory, taskDescr)
++validatesTask(task)
++add(task)
+}
+}
+class Organization{
+- String orgName
+- String NIF
+- Integer paymentDay
+- Time paymentTime
++getListTask()
+}
+
+
+
+class Task{
+-String taskID
+-String taskDescr
+-Int taskAssignDuration
+-Double taskCostPerHour
+-String taskCategory
++Task(taskID, taskDescr, taskAssignDuration,taskCostPerHour, taskCategory)
++validates()
+}
+
+TaskCreationUI ..> TaskCreationController
+TaskCreationController ..> Task
+TaskCreationController ..> Organization
+TaskCreationController ..> Platform
+Platform "1" --> "1" RegistryOrganizations : has >
+RegistryOrganizations "1" --> "*" Organization : has >
+Organization "1" --> "1" ListTasks : has >
+ListTasks "1" --> "*" Task : has >
+Platform "1" -> "*" Task : has >
+
+
+
+
+@enduml

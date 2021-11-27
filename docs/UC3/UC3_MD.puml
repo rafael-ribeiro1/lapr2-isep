@@ -1,0 +1,40 @@
+@startuml
+hide methods
+
+class Collaborator {
+-String name
+-String email
+}
+class Freelancer {
+-String id
+-String name
+-String email
+-String nif
+-String bankAccount
+-String address
+-String country
+}
+
+class Task{
+-Integer taskID
+-Integer taskAssignDuration
+-Double taskCostPerHour
+-String taskCategory
+-boolean taskHasTransaction
+}
+
+class Transaction {
+-Integer transID
+-Boolean transPaids
+-Date executionFinishDate
+-Integer executionDelay
+-String executionBriefDescriptions
+}
+
+Collaborator --> Task : Creates >
+Collaborator --> Freelancer : Creates >
+Collaborator --> Transaction: Creates >
+Transaction --> Task : has >
+Transaction --> Freelancer : has >
+
+@enduml

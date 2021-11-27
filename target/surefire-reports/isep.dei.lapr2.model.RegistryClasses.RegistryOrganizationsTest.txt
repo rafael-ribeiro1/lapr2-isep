@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: isep.dei.lapr2.model.RegistryClasses.RegistryOrganizationsTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 sec - in isep.dei.lapr2.model.RegistryClasses.RegistryOrganizationsTest

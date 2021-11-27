@@ -1,0 +1,139 @@
+@startuml
+autonumber
+
+actor "Administrator" as ADM
+participant ":StatsAllFreelancersUI" as UI
+participant ":StatsAllFreelancersController" as CTRL
+participant ":Platform" as PLAT
+participant "regTrans\n:RegistryTransactions" as REGTRA
+participant "regFrl\n:RegistryFreelancers" as REGFRL
+
+ADM -> UI: starts the process
+activate ADM
+activate UI
+
+UI -> CTRL: meanDelays=getMeanDelays()
+activate CTRL
+
+CTRL -> PLAT: regTrans=getRegistryTransactions()
+activate PLAT
+deactivate PLAT
+
+CTRL -> REGTRA: meanDelays=getMeanDelays()
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: deviationDelays=getDeviationDelays()
+activate CTRL
+CTRL -> REGTRA: deviationDelays=getDeviationDelays()
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: histDataDelays=getHistogramDataDelays()
+activate CTRL
+CTRL -> REGTRA: histDataDelays=getHistogramDataDelays()
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: meanPays=getMeanPays()
+activate CTRL
+CTRL -> REGTRA: meanPays=getMeanPays()
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: deviationPays=getDeviationPays()
+activate CTRL
+CTRL -> REGTRA: deviationPays=getDeviationPays()
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: histDataPays=getHistogramDataPays()
+activate CTRL
+CTRL -> REGTRA: histDataPays=getHistogramDataPays()
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: probability=getProbability()
+activate CTRL
+CTRL -> REGTRA: probability=getProbability()
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: lstFrl=getListFreelancers()
+activate CTRL
+CTRL -> PLAT: regFrl=getRegistryFreelancers()
+activate PLAT
+deactivate PLAT
+CTRL -> REGFRL: lstFrl=getListFreelancers()
+activate REGFRL
+deactivate REGFRL
+deactivate CTRL
+
+UI --> ADM: shows the mean, standard deviation and histograms about\nthe performance of all freelancers, and also the probability\nthat the sample mean is higher than 3 hours, and\nlist the freelancers
+deactivate UI
+
+loop For every freelancer wanted
+ADM -> UI: selects one freelancer to see his individual performance
+activate UI
+
+UI -> CTRL: frl=getFreelancer(index)
+activate CTRL
+CTRL -> REGFRL: frl=getFreelancerByIndex(index)
+activate REGFRL
+deactivate REGFRL
+deactivate CTRL
+
+UI -> CTRL: meanDelaysFrl=getMeanDelaysOfFrl(frl)
+activate CTRL
+CTRL -> REGTRA: meanDelaysFrl=getMeanDelaysOfFreelancer(frl)
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: deviationDelaysFrl=getDeviationDelaysOfFrl(frl)
+activate CTRL
+CTRL -> REGTRA: deviationDelaysFrl=getDeviationDelaysOfFreelancer(frl)
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: histDataDelaysFrl=getHistogramDataDelaysOfFrl(frl)
+activate CTRL
+CTRL -> REGTRA: histDataDelaysFrl=getHistogramDataDelaysOfFreelancer(frl)
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: meanPaysFrl=getMeanPaysOfFrl(frl)
+activate CTRL
+CTRL -> REGTRA: meanPaysFrl=getMeanPaysOfFreelancer(frl)
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: deviationPaysFrl=getDeviationPaysOfFrl(frl)
+activate CTRL
+CTRL -> REGTRA: deviationPaysFrl=getDeviationPaysOfFreelancer(frl)
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI -> CTRL: histDataPaysFrl=getHistogramDataPaysOfFrl(frl)
+activate CTRL
+CTRL -> REGTRA: histDataPaysFrl=getHistogramDataPaysOfFreelancer(frl)
+activate REGTRA
+deactivate REGTRA
+deactivate CTRL
+
+UI --> ADM: shows the mean, standard deviation and histograms about\nthe performance of the selected freelancer
+deactivate UI
+end loop
+deactivate ADM
+@enduml

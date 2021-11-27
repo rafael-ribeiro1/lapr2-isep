@@ -1,0 +1,46 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide methods
+left to right direction
+
+class Platform {
+}
+
+class Organization {
+- String orgName
+- String nif
+- Integer paymentDay
+- Time paymentTime
+}
+
+class Collaborator {
+- String nameCollab
+- String emailCollab
+}
+
+class User {
+  -String userName
+  -String userEmail
+  -String userPassword
+}
+
+class PasswordGenerator{
+}
+
+class Manager{
+-String nameMan
+-String emailMan
+}
+
+Platform "1" --> "*" Organization : has >
+Platform "1" --> "1" PasswordGenerator : resort to >
+Organization "1" --> "1" Collaborator : has >
+Organization "1" --> "1" Manager : has >
+Collaborator "1" --> "1" User : is >
+Manager "1" --> "1" User : is >
+PasswordGenerator "1" --> "*" User : generate password >
+Collaborator "1" --> "1" Organization : works for >
+Manager "1" --> "1" Organization : works for >
+
+
+@enduml

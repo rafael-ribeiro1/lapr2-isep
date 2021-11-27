@@ -1,0 +1,57 @@
+@startuml
+
+left to right direction
+package ui{
+class FreelancerCreationUI
+}
+package controller{
+class FreelancerCreationController{
++getExpertiseArray()
++getCountrys()
++newFreelancer(FreelancerID,FreelancerName,FreelancerExpertise,FreelancerEMail,FreelancerNIF,FreelancerBanckAccout,FreelancerAddress,FreeLancerCountry)
++registerFreelancer(free)
+}
+}
+package model{
+class Platform {
++getRegistryFreelancer()
++getExternalConverterCurrency()
+}
+package RegistryClasses{
+class RegistryFreelancer{
++newFreelancer(name,expertise ,email,nif,bankAccount,address,country)
++generateFreelancerID(free)
++registerFreelancer(free)
+}
+}
+class Freelancer {
+-String id
+-String name
+-String email
+-String nif
+-String bankAccount
+-String address
+-String country
++Freelancer(name,expertise ,email,nif,bankAccount,address,country)
++validate()
++getExpertiseArray()
++setId(ID)
+}
+Interface ExternalConverterCurrency{
++getAvailableCountrys()
+}
+
+Enum FreelancerExpertise{
+JUNIOR
+SENIOR
+}
+}
+FreelancerCreationUI ...> FreelancerCreationController
+FreelancerCreationController ...> Platform
+FreelancerCreationController ...> RegistryFreelancer
+Platform "1" --> ExternalConverterCurrency : has >
+Freelancer"1" --> "1"FreelancerExpertise : has >
+Platform"1" --> "*"Freelancer : has registered >
+RegistryFreelancer"1" --->"*" Freelancer : has >
+
+@enduml

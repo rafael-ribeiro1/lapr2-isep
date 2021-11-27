@@ -1,0 +1,42 @@
+@startuml
+left to right direction
+
+class Collaborator{
+ -String name
+ -String email
+}
+
+class Freelancer {
+-String id
+-String name
+-String email
+-String nif
+-String bankAccount
+-String address
+-String country
+}
+
+class Platform {
+}
+
+enum Expertise {
+JUNIOR
+SENIOR
+}
+
+class User {
+-String userEmail
+-String userName
+-String userPassword
+}
+
+
+
+Platform"1" --> "*"Freelancer : has >
+Collaborator"1"  --> "*"Freelancer : registers >
+Freelancer "1" --> "1" Expertise : has >
+Freelancer "1" --> "1" User : act as >
+Collaborator "1" --> "1" User : act as  >
+
+
+@enduml

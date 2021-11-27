@@ -1,0 +1,26 @@
+@startuml
+autonumber
+title SD_getFreelancersWithHighDelay
+
+participant "RegistryFreelancer " as RegFree
+participant "freelancersWithHighDelays:List<Freelancer>" as lstHighDelay
+participant ":List<Freelancer>" as lstFree
+participant "Free:Freelancer" as free
+activate RegFree
+[o-> RegFree: getFreelancersWithHighDelays()
+RegFree ---> lstHighDelay** : create()
+loop For every Freelancer
+RegFree -> lstFree : free=get(i)
+activate lstFree
+deactivate lstFree
+RegFree -> RegFree: sumHourDelay=calculateSumDelayFreelancer(free)
+RegFree -> RegFree: percentageFreelancerDelay=calculatePercentageFreelancerDelay(free)
+RegFree -> RegFree: averagePercentageDelay=getAveragePercentageDelay()
+opt if sumHourDelayed >3 && percentageFreelancerDelay > averagePercentageDelay
+RegFree->lstHighDelay:add(free)
+activate lstHighDelay
+deactivate lstHighDelay
+end opt
+end
+
+@enduml

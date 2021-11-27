@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : starts the process
+activate ":System"
+":System" --> ADM : shows the mean, standard deviation and histograms about\nall freelancers, and also the probability that the mean\n is higher than 3 hours
+deactivate ":System"
+ADM -> ":System" : selects freelancers to see their performance
+activate ":System"
+":System" --> ADM : shows the mean, standard deviation and histogram about\nthe selected freelancers performance
+deactivate ":System"
+deactivate ADM
+@enduml

@@ -1,0 +1,66 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+package login {
+class LoginSystem {
++newUser(nameCollab,emailCollab,COLLABORATOR)
++newUser(nameManager,emailManager,MANAGER)
+}
+}
+package model {
+class Collaborator {
+  -String nameCollab
+  -String emailCollab
+  +Collaborator(nameCollab ,emailCollab)
+}
+class Manager {
+  -String nameMan
+  -String emailMan
+  +Manager(nameMan, emailMan)
+}
+
+class Organization {
+  -String nameOrg
+  -String nif
+  +validate()
+  +Organization(nameOrg, nif)
+
+}
+
+class Platform {
+  + RegistryOrganizations getRegistryOrganizations()
+}
+package RegistryClasses{
+class RegistryOrganizations {
+  +newOrganization (nameOrg, nif , nameCollab,\n emailCollab,nameManager,emailManager)
+  +validate(org)
+  +add(org)
+  +registerOrganization(org)
+}
+}
+}
+
+package controller {
+class RegisterOrganizationController {
+    +newOrganization (nameOrg, nif , nameCollab,\nemailCollab,nameManager,emailManager)
+    +registerOrganization()
+}
+}
+package ui {
+class RegisterOrganizationUI {
+}
+}
+RegisterOrganizationUI ..> RegisterOrganizationController
+RegisterOrganizationController ..> Platform
+RegisterOrganizationController ..> RegistryOrganizations
+RegisterOrganizationController ..> Organization
+RegisterOrganizationController ..> LoginSystem
+RegistryOrganizations "1" --> "*" Organization : has registered >
+Organization "1" --> "1" Collaborator: has >
+Organization "1" --> "1" Manager: has >
+Platform "1" ---> "*" Organization : has >
+Platform "1" --> "*" Collaborator : has >
+Platform "1" --> "*" Manager : has >
+
+@enduml

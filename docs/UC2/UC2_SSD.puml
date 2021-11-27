@@ -1,0 +1,19 @@
+@startuml
+autonumber
+actor "Collaborator" as actor
+participant ":System" as SYS
+
+activate actor
+
+actor -> SYS : Begins the process of create a task.
+activate SYS
+SYS ---> actor :The system requests the necessary data about the task\n (id, brief description, time duration (in hours), cost per hour (in euros) and task category).
+deactivate SYS
+actor -> SYS : The collaborator enters the requested data.
+activate SYS
+SYS ---> actor :The system validates and regists the data and informs the collaborator of the sucess of the operation.
+deactivate SYS
+
+
+
+@enduml

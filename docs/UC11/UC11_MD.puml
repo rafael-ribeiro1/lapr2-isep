@@ -1,0 +1,46 @@
+@startuml
+
+hide methods
+left to right direction
+
+
+class Platform {
+
+}
+
+class Freelancer {
+-String idFreelancer
+-String freelancerName
+-String freelancerExpertise
+-String freelancerEmail
+-String freelancerNIF
+-String freelancerBankAccount
+-String freelancerAddress
+-String freelancerCountry
+}
+
+
+class Task{
+-Integer taskID
+-Integer taskAssignDuration
+-Double taskCostPerHour
+-String taskCategory
+}
+
+class Transaction {
+-Integer transID
+-Boolean transPaid
+-Date executionFinishDate
+-Integer executionDelay
+-String executionBriefDescription
+}
+
+class externalEmailSender
+
+Platform"1" --> "*" Freelancer : has >
+Platform"1" -->"*" Transaction : it has
+Platform"1" -->"1" externalEmailSender : it has >
+externalEmailSender"1" --> "1"Transaction : gets info >
+Transaction "1" --> "1" Task: refers to >
+Transaction "1" --> "1" Freelancer: to >
+@enduml

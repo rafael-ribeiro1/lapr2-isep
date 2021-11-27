@@ -1,0 +1,21 @@
+@startuml
+autonumber
+actor "Organization Collaborator" as actor
+participant ":System" as SYS
+
+activate actor
+
+actor -> SYS : Begins the process of create a transation
+activate SYS
+SYS ---> actor :Shows the list of the tasks of the organization ,the list of all freelancers registered on the system and request the selection of one Task, one Freelancer\n and the data about the execution of the selected task(end date, delay, brief description of the quality of the work).
+deactivate SYS
+actor -> SYS : Introduce the information about the task
+activate SYS
+SYS ---> actor : Validates the data introduced, show the amount to pay to the Freelancer and request confirmation.
+deactivate SYS
+actor -> SYS : Confirms
+activate SYS
+SYS ---> actor : Informs of the success of the operation
+deactivate SYS
+
+@enduml

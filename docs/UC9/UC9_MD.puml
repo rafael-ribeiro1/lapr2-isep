@@ -1,0 +1,29 @@
+@startuml
+
+class Freelancer {
+-String id
+-String name
+-Expertise expertise
+-String email
+-String nif
+-String bankAccount
+-String address
+-String country
+}
+
+class externalEmailSender
+
+class Transaction {
+-Integer transID
+-Boolean transPaid
+-Date executionFinishDate
+-Integer executionDelay
+-String executionBriefDescription
+}
+
+Transaction "1" --> "1" Freelancer : has >
+externalEmailSender"1" --> "1"Freelancer : gets info >
+
+
+
+@enduml

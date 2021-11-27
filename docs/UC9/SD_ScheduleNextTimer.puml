@@ -1,0 +1,17 @@
+@startuml
+title "SD_ScheduleNextTimer"
+participant ":EndYearEmailTask" as TASK
+participant ":Platform" as PLAT
+participant "regFree\n:RegistryFreelancer" as REGFree
+
+[o-> TASK: scheduleNextTimer()
+activate TASK
+TASK -> PLAT : regGree=getRegistryFreelancer()
+activate PLAT
+|||
+deactivate PLAT
+TASK -> REGFree :scheduleAutomaticEmail()
+activate REGFree
+|||
+deactivate REGFree
+@enduml

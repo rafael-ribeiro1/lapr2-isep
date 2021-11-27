@@ -1,0 +1,40 @@
+@startuml
+
+autonumber
+title SD_sendEmails
+participant ":EndYearEmailTask" as TASK
+participant "RegFree:RegistryFreelancer " as RegFree
+participant "lstFree:List<Freelancer:" as lstFree
+participant "free:Freelancer" as free
+participant ":Platform" as Plat
+participant "<<interface>>\nemailSender:ExternalEmailSender" as EMAIL
+[o-> TASK: sendEmails()
+activate TASK
+TASK -> RegFree :  sendEndofTheYearEmail()
+activate RegFree
+RegFree->RegFree:lstFree=getFreelancersWithHighDelays()
+ref over RegFree : Sd_getFreelancersWithHighDelays
+loop For every Freelancer in "lstFree"
+RegFree -> lstFree : free=get(i)
+activate lstFree
+|||
+deactivate lstFree
+RegFree-> free : email=getEmail()
+activate free
+|||
+deactivate free
+RegFree->RegFree:header=generateHeader()
+RegFree->RegFree:content=generateContent()
+RegFree->Plat : emailSender=getExternalEmailSender()
+activate Plat
+|||
+deactivate Plat
+RegFree->EMAIL:SendEmail(email,header,content)
+activate EMAIL
+|||
+deactivate EMAIL
+end loop
+deactivate RegFree
+deactivate TASK
+
+@enduml

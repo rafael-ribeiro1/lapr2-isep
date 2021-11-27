@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="121.0" prefWidth="450.0">
+               <children>
+                  <TextField fx:id="txtOrgName" onAction="#registerOrgAction" prefHeight="25.0" prefWidth="203.0" promptText="Organization Name">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="138.0" prefHeight="121.0" prefWidth="450.0">
+               <children>
+                  <TextField fx:id="txtOrgNIF" onAction="#registerOrgAction" prefHeight="25.0" prefWidth="203.0" promptText="Organization NIF">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="199.0" prefHeight="121.0" prefWidth="450.0">
+               <children>
+                  <TextField fx:id="txtCollabName" onAction="#registerOrgAction" prefHeight="25.0" prefWidth="203.0" promptText="Collaborator Name">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="259.0" prefHeight="121.0" prefWidth="450.0">
+               <children>
+                  <TextField fx:id="txtCollabEmail" onAction="#registerOrgAction" prefHeight="25.0" prefWidth="203.0" promptText="Collaborator Email">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="292.0" prefHeight="121.0" prefWidth="450.0">
+               <children>
+                  <TextField fx:id="txtManName" onAction="#registerOrgAction" prefHeight="25.0" prefWidth="203.0" promptText="Manager Name">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="311.0" prefHeight="121.0" prefWidth="450.0">
+               <children>
+                  <TextField fx:id="txtManEmail" onAction="#registerOrgAction" prefHeight="25.0" prefWidth="203.0" promptText="Manager Email">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <VBox alignment="CENTER" prefHeight="26.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Register Organization">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="66.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+         <children>
+            <Separator prefWidth="200.0" />
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#registerOrgAction" style="-fx-background-color: #344ba8;" text="Register Organization" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

@@ -1,0 +1,88 @@
+@startuml
+
+left to right direction
+package UI{
+class TransactionCreationUI
+}
+package Controller {
+class TransactionCreationController{
++getListTask()
++getListFreelancers()
++newTransaction(Task , Freelancer, endDate, delay, descriptionWork)
++getAmountToPay()
++registerTransaction()
+}
+}
+package login{
+
+class LoginSystem {
++getLoggedUserEmail()
+}
+}
+
+package RegistryClasses{
+class registryOrganization{
++getOrgByUserEmail(email)
+}
+class  registryTransaction{
++newTransaction(org,transID,endDate,delay,descriptionWork,task,free)
++validateTransaction(trans)
++registerTransaction(trans)
+}
+class registryFreelancer{
++getListFreelancers()
+}
+class ListTask{
++getListTaskWithNoTransactions()
+}
+}
+package model{
+class Organization{
++getListTask()
+}
+class Transaction{
+-endDate
+-delay
+-descriptionWork
++Transaction(org,transID,endDate,delay,descriptionWork,task,free)
++getAmountToPay()
+}
+class Task{
+-Integer taskID
+-Integer taskAssignDuration
+-Double taskCostPerHour
+-String taskCategory
+}
+class Freelancer{
+-String id
+-String name
+-String email
+-String nif
+-String bankAccount
+-String address
+-String country
+}
+class Platform {
++GetRegistryOrganization()
++GetRegistryFreelancer()
++GetRegistryTransaction()
+}
+}
+TransactionCreationUI ..> TransactionCreationController
+TransactionCreationController ..> LoginSystem
+TransactionCreationController ..> Platform
+TransactionCreationController ..> registryFreelancer
+TransactionCreationController .> registryTransaction
+TransactionCreationController ..> registryOrganization
+registryFreelancer"1" --> "*"Freelancer : has >
+registryOrganization"1" -->"*" Organization : has >
+registryTransaction"1" --> "*"Transaction : has >
+ListTask "1" --> "*" Task : has >
+Transaction "1" --> "1" Freelancer : has >
+Transaction "1" --> "1" Task : has >
+Platform "1" --> "*" Freelancer : has registered>
+Platform "1" --> "*" Task : has registered >
+Platform "1" --> "*" Transaction : has >
+Platform "1" --> "*" Organization : has >
+Organization "1" --> "1" ListTask : has >
+@enduml

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="910.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="isep.dei.lapr2.ui.ManagerMenuUI">
+<left>
+<AnchorPane prefHeight="680.0" prefWidth="196.0" style="-fx-background-color: #202020;" BorderPane.alignment="CENTER">
+    <children>
+        <Label layoutX="57.0" layoutY="594.0" onMouseClicked="#logoutAction" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" opacity="0.61" text="Logout" textFill="RED">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../logos/logOut.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+        </Label>
+        <Label layoutX="8.0" layoutY="367.0" onMouseClicked="#showStatisticsOrganizationAction" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" text="Statistics about organization" textFill="WHITE">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font size="13.0" />
+            </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../logos/statistics.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+        </Label>
+            <Label layoutX="13.0" layoutY="205.0" onMouseClicked="#setPaymentTimeAction" onMouseExited="#mouseExited" onMouseMoved="#mouseMoved" text="Set Payments Datetime" textFill="WHITE">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="22.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../logos/transationTime.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Separator layoutY="540.0" prefHeight="0.0" prefWidth="203.0" />
+            <Separator layoutY="136.0" prefHeight="0.0" prefWidth="203.0" />
+            <ImageView fitHeight="76.0" fitWidth="57.0" layoutX="73.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../logos/manager.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="lblNome" alignment="CENTER" layoutX="10.0" layoutY="94.0" prefHeight="17.0" prefWidth="184.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblOrganizacao" alignment="CENTER" layoutX="10.0" layoutY="111.0" prefHeight="17.0" prefWidth="184.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+    </children>
+</AnchorPane>
+</left>
+   <center>
+      <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <Label text="Welcome back Manager !" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
+   </center>
+        </BorderPane>

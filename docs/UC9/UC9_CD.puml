@@ -1,0 +1,53 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+left to right direction
+package java{
+class Timer {
+  +Timer()
+  +schedule(task,definedDate)
+}
+}
+package controller {
+class EndYearEmailTask{
++EndYearEmailTask()
++run()
++sendEmails()
++scheduleNextTimer()
+}
+}
+package model {
+class Platform {
+  +getExternalEmailSender()
+  +getRegistryFreelancer()
+}
+package RegistryClasses{
+class RegistryFreelancer{
++sendEndOfTheYearEmail()
++getFreelancerWithHighDelays()
++calculateSumDelayFreelancer(free)
++calculatePercentageFreelancerDelay(free)
++getAveragePercentageDelay()
++generateHeader()
++generateContent()
++scheduleAutomaticEmail()
+}
+}
+class Freelancer{
++getEmail()
+}
+
+interface "<<interface>>\nExternalEmailSender" {
+  +sendEmail(email,header,content)
+}
+
+Timer ..> EndYearEmailTask
+EndYearEmailTask ...> RegistryFreelancer
+EndYearEmailTask ...> Platform
+Platform ...> RegistryFreelancer
+
+Platform...> "<<interface>>\nExternalEmailSender"
+Platform"1" --> "*"Freelancer : has >
+RegistryFreelancer --> Freelancer : has >
+"<<interface>>\nExternalEmailSender" ...> RegistryFreelancer
+@enduml

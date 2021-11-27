@@ -1,0 +1,15 @@
+@startuml
+autonumber
+actor "Administrator" as ADM
+
+activate ADM
+ADM -> ":System" : starts the process
+activate ":System"
+":System" --> ADM : lists freelancers with high delays and asks for confirmation
+deactivate ":System"
+ADM -> ":System" : confirms
+activate ":System"
+":System" --> ADM : success operation
+deactivate ":System"
+deactivate ADM
+@enduml

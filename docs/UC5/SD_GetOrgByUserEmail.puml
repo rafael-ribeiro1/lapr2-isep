@@ -1,0 +1,49 @@
+@startuml
+autonumber
+'hide footbox
+title SD_GetOrgByUserEmail
+
+participant "regOrg\n:RegistryOrganizations" as REGORG
+participant ":List<Organization>" as LSTORG
+participant "org\n:Organization" as ORG
+participant "collab\n:Collaborator" as COL
+participant "manager\n:Manager" as MNG
+
+[o-> REGORG: getOrgByUserEmail(email)
+activate REGORG
+
+REGORG -> REGORG: orgReturn=null
+
+loop For every organizations
+REGORG -> LSTORG: org=get(i)
+activate LSTORG
+deactivate LSTORG
+
+REGORG -> ORG: collab=getCollaborator()
+activate ORG
+deactivate ORG
+
+REGORG -> ORG: manager=getManager()
+activate ORG
+deactivate ORG
+
+REGORG -> COL: found1=hasEmail(email)
+activate COL
+deactivate COL
+
+REGORG -> MNG: found2=hasEmail(email)
+activate MNG
+deactivate MNG
+
+REGORG -> REGORG: found=found1**OR**found2
+  
+opt found==true
+REGORG -> REGORG: orgReturn=org
+end opt
+  
+end loop
+
+[<-- REGORG: orgReturn
+deactivate REGORG
+
+@enduml
